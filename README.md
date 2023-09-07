@@ -1,4 +1,4 @@
-# PY-ZERO
+# Pyzero
 
 Attempt at a complete chess engine using **Python** and **Pytorch** (eventually).
 
