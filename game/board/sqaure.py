@@ -20,7 +20,7 @@ class Square(object):
     def set_ent(self, ent: bool) -> None:
         self.ent = ent
 
-    def set_piece(self, piece: Piece) -> None:
+    def set_piece(self, piece: Piece | None) -> None:
         self.piece = piece
 
     def remove_piece(self) -> Piece | None:

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from game.board.sqaure import Square
@@ -139,11 +141,12 @@ class Pawn(Piece):
 
         # Captures
         left_capture: Vector2 = current_pos.add(Vector2(-1, direction))
-        left_capture_square: Square = squares[(left_capture.x, left_capture.y)]
+        left_capture_square: Square | None = squares[(left_capture.x, left_capture.y)] if 8 < left_capture.x > 0 else None 
         right_capture: Vector2 = current_pos.add(Vector2(1, direction))
-        right_capture_square: Square = squares[(right_capture.x, right_capture.y)]
+        right_capture_square: Square | None = squares[(right_capture.x, right_capture.y)] if 8 < right_capture.x > 0 else None
 
         for sq in (left_capture_square, right_capture_square):
+            if sq is None: continue
             if (sq.piece and sq.piece.color != self.color) or (sq.is_ent()):
                 moves.append(sq)
 

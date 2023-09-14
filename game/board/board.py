@@ -13,7 +13,7 @@ class Board(object):
         from game.board.parser.fen import FenParser
         return FenParser.parse(fen)
     
-    def __init__(self, 
+    def __init__(self,
                  squares: dict[tuple[int, int], Square],
                  pieces: list[Piece],
                  side: int, 
@@ -27,15 +27,29 @@ class Board(object):
         self.pieces: list[Piece] = pieces
         self.side_to_move: int = side
         self.castling_state: dict[int, list[int]] = castling_state
-        self.ent_square: Square | None
+        self.ent_square: Square | None = None
         self.set_ent_square(ent_square)
         self.half_moves: int = half_moves
         self.full_moves: int = full_moves
+
+    """
+    MAIN
+    """
+
+    @staticmethod
+    def move_piece(source: Square, target: Square) -> None:
+        if source.piece:
+            piece: Piece | None = source.remove_piece()
+            target.set_piece(piece)
 
     def set_ent_square(self, square: Square | None) -> None:
         if self.ent_square: self.ent_square.set_ent(False)
         self.ent_square = square
         if self.ent_square: self.ent_square.set_ent(True)
+
+    """
+    HELPERS
+    """
 
     def to_fen(self) -> str:
         from game.board.builder.fen import FenBuilder
